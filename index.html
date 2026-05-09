@@ -10,14 +10,14 @@
     * { margin:0; padding:0; box-sizing:border-box; }
 
     body {
-      background: #d8d8d8;
+      background: #f0f0f0;
       display: flex;
       justify-content: center;
       min-height: 100vh;
     }
 
     .inv {
-      background: #e8e8e8;
+      background: #ffffff;
       font-family: 'DM Sans', sans-serif;
       color: #1a1a1a;
       width: 100%;
@@ -40,7 +40,7 @@
     .inv-eyebrow { font-size: 26px; line-height: 1.25; margin-bottom: 28px; }
 
     .inv-photo-main {
-      background: #c8c8c8;
+      background: #e0e0e0;
       height: 320px;
       display: flex;
       flex-direction: column;
@@ -92,7 +92,7 @@
       font-size: 14px;
       color: #2a2a2a;
       line-height: 1.9;
-      background: #ddd;
+      background: #f5f5f5;
       padding: 12px 14px;
     }
 
@@ -106,54 +106,73 @@
       font-size: 13px;
       color: #2a2a2a;
       line-height: 1.6;
-      background: #ddd;
+      background: #f5f5f5;
       padding: 8px 12px;
     }
     .bullet-dot { color: #1a3a8f; font-size: 16px; flex-shrink: 0; line-height: 1.4; }
 
-    .gallery-section { margin: 0; }
-    .gallery-slider {
-      position: relative;
-      background: #bbb;
-      height: 300px;
+    .gallery-section { padding: 0 32px; }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 4px;
+    }
+    .gallery-thumb {
+      aspect-ratio: 4 / 6;
+      background: #e0e0e0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      overflow: hidden;
+    }
+    .gallery-thumb:hover { opacity: 0.85; }
+    .gallery-thumb img { width: 100%; height: 100%; object-fit: cover; }
+    .gallery-thumb-lbl { font-size: 8px; letter-spacing: 0.1em; color: #aaa; text-transform: uppercase; }
+
+    .lightbox {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.92);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+    .lightbox.open { display: flex; }
+    .lightbox-img {
+      width: 90vw;
+      max-width: 420px;
+      aspect-ratio: 4 / 6;
+      background: #333;
       display: flex;
       align-items: center;
       justify-content: center;
       overflow: hidden;
     }
-    .gallery-slide { position: absolute; width: 100%; height: 100%; display: none; align-items: center; justify-content: center; }
-    .gallery-slide.active { display: flex; }
-    .gallery-slide img { width: 100%; height: 100%; object-fit: cover; }
-    .gallery-slide-lbl { font-size: 9px; letter-spacing: 0.2em; color: #888; text-transform: uppercase; }
-    .gallery-nav {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      background: rgba(255,255,255,0.75);
-      border: none;
-      width: 36px;
-      height: 36px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
+    .lightbox-img img { width: 100%; height: 100%; object-fit: cover; }
+    .lightbox-img-lbl { font-size: 10px; letter-spacing: 0.15em; color: #888; text-transform: uppercase; }
+    .lightbox-controls { display: flex; align-items: center; gap: 28px; margin-top: 16px; }
+    .lb-btn {
+      background: transparent;
+      border: 0.5px solid rgba(255,255,255,0.3);
+      color: #fff;
       font-size: 16px;
-      color: #1a1a1a;
+      width: 40px; height: 40px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
     }
-    .gallery-nav:hover { background: rgba(255,255,255,0.95); }
-    .gallery-prev { left: 12px; }
-    .gallery-next { right: 12px; }
-    .gallery-counter {
+    .lb-btn:hover { background: rgba(255,255,255,0.1); }
+    .lb-counter { font-size: 11px; color: #888; letter-spacing: 0.1em; min-width: 40px; text-align: center; }
+    .lb-close {
       position: absolute;
-      bottom: 12px;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 9px;
-      letter-spacing: 0.15em;
-      color: #555;
-      background: rgba(255,255,255,0.65);
-      padding: 3px 10px;
+      top: 20px; right: 20px;
+      background: transparent; border: none;
+      color: #888; font-size: 22px; cursor: pointer;
     }
+    .lb-close:hover { color: #fff; }
 
     .details-grid { display: flex; flex-direction: column; gap: 14px; }
     .detail-row { display: flex; justify-content: space-between; align-items: flex-start; }
@@ -248,7 +267,7 @@
   <div class="inv-names-block">
     <div class="inv-names-kr">양지웅 &amp; 박수민</div>
     <div class="inv-names-en">Yang Jiwoong · Park Soomin</div>
-    <div class="inv-date-sub">Saturday · March 20, 2027 · 오후 5시</div>
+    <div class="inv-date-sub">Saturday · March 20, 2027 · 5:00 PM</div>
   </div>
 
   <div class="inv-body">
@@ -292,17 +311,33 @@
     <div class="section-title pf">Gallery</div>
   </div>
 
-  <!-- 갤러리: src="photos/1.jpg" 형식으로 사진을 교체하세요 -->
+  <!-- 갤러리: <img src="photos/1.jpg"> 형식으로 사진을 교체하세요 -->
   <div class="gallery-section">
-    <div class="gallery-slider">
-      <div class="gallery-slide active"><span class="gallery-slide-lbl">photo 1 — 사진을 넣어주세요</span></div>
-      <div class="gallery-slide"><span class="gallery-slide-lbl">photo 2</span></div>
-      <div class="gallery-slide"><span class="gallery-slide-lbl">photo 3</span></div>
-      <div class="gallery-slide"><span class="gallery-slide-lbl">photo 4</span></div>
-      <div class="gallery-slide"><span class="gallery-slide-lbl">photo 5</span></div>
-      <button class="gallery-nav gallery-prev" onclick="changeSlide(-1)">&#8592;</button>
-      <button class="gallery-nav gallery-next" onclick="changeSlide(1)">&#8594;</button>
-      <div class="gallery-counter" id="gallery-counter">1 / 5</div>
+    <div class="gallery-grid">
+      <div class="gallery-thumb" onclick="openLightbox(0)"><span class="gallery-thumb-lbl">01</span></div>
+      <div class="gallery-thumb" onclick="openLightbox(1)"><span class="gallery-thumb-lbl">02</span></div>
+      <div class="gallery-thumb" onclick="openLightbox(2)"><span class="gallery-thumb-lbl">03</span></div>
+      <div class="gallery-thumb" onclick="openLightbox(3)"><span class="gallery-thumb-lbl">04</span></div>
+      <div class="gallery-thumb" onclick="openLightbox(4)"><span class="gallery-thumb-lbl">05</span></div>
+      <div class="gallery-thumb" onclick="openLightbox(5)"><span class="gallery-thumb-lbl">06</span></div>
+      <div class="gallery-thumb" onclick="openLightbox(6)"><span class="gallery-thumb-lbl">07</span></div>
+      <div class="gallery-thumb" onclick="openLightbox(7)"><span class="gallery-thumb-lbl">08</span></div>
+      <div class="gallery-thumb" onclick="openLightbox(8)"><span class="gallery-thumb-lbl">09</span></div>
+      <div class="gallery-thumb" onclick="openLightbox(9)"><span class="gallery-thumb-lbl">10</span></div>
+      <div class="gallery-thumb" onclick="openLightbox(10)"><span class="gallery-thumb-lbl">11</span></div>
+      <div class="gallery-thumb" onclick="openLightbox(11)"><span class="gallery-thumb-lbl">12</span></div>
+    </div>
+  </div>
+
+  <div class="lightbox" id="lightbox">
+    <button class="lb-close" onclick="closeLightbox()">✕</button>
+    <div class="lightbox-img" id="lb-img">
+      <span class="lightbox-img-lbl" id="lb-lbl">photo 1</span>
+    </div>
+    <div class="lightbox-controls">
+      <button class="lb-btn" onclick="lbChange(-1)">&#8592;</button>
+      <span class="lb-counter" id="lb-counter">1 / 12</span>
+      <button class="lb-btn" onclick="lbChange(1)">&#8594;</button>
     </div>
   </div>
 
@@ -391,15 +426,32 @@
 </div>
 
 <script>
-  var slideIdx = 0;
-  var slides = document.querySelectorAll('.gallery-slide');
+  var lbIdx = 0;
+  var lbTotal = 12;
 
-  function changeSlide(dir) {
-    slides[slideIdx].classList.remove('active');
-    slideIdx = (slideIdx + dir + slides.length) % slides.length;
-    slides[slideIdx].classList.add('active');
-    document.getElementById('gallery-counter').textContent = (slideIdx + 1) + ' / ' + slides.length;
+  function openLightbox(idx) {
+    lbIdx = idx;
+    updateLightbox();
+    document.getElementById('lightbox').classList.add('open');
   }
+
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('open');
+  }
+
+  function lbChange(dir) {
+    lbIdx = (lbIdx + dir + lbTotal) % lbTotal;
+    updateLightbox();
+  }
+
+  function updateLightbox() {
+    document.getElementById('lb-lbl').textContent = 'photo ' + (lbIdx + 1);
+    document.getElementById('lb-counter').textContent = (lbIdx + 1) + ' / ' + lbTotal;
+  }
+
+  document.getElementById('lightbox').addEventListener('click', function(e) {
+    if (e.target === this) closeLightbox();
+  });
 
   function toggleAcc(id) {
     var content = document.getElementById(id);
