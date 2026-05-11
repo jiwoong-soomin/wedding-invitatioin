@@ -346,12 +346,56 @@
     <div class="details-grid">
       <div class="detail-row">
         <span class="detail-key">Date</span>
-        <span class="detail-val">2027년 3월 20일 토요일<span class="detail-sub">오후 5시</span></span>
+        <span class="detail-val">2027년 3월 20일 토요일<span class="detail-sub">5:00 PM</span></span>
       </div>
       <div class="detail-row">
         <span class="detail-key">Venue</span>
-        <span class="detail-val">수원파티웨딩유<span class="detail-sub">경기 수원시 권선구 세화로 218</span></span>
+        <span class="detail-val">수원파티웨딩유<span class="detail-sub">경기 수원시 권선구 세화로 218</span>
+          <span onclick="toggleAcc('map')" style="display:inline-block; margin-top:6px; font-size:10px; letter-spacing:0.12em; color:#1a3a8f; cursor:pointer; border-bottom:0.5px solid #1a3a8f;">상세 지도 보기 <span id="arr-map">▼</span></span>
+        </span>
       </div>
+    </div>
+
+    <div class="accordion-content" id="map" style="margin-top:12px;">
+        <div style="display:flex; gap:8px; margin-bottom:16px;">
+          <a href="https://kko.to/QvcN28RN3C" target="_blank" style="flex:1; display:block; text-align:center; border:1px solid #1a3a8f; color:#1a3a8f; font-size:10px; letter-spacing:0.15em; text-transform:uppercase; padding:12px; text-decoration:none; font-family:'DM Sans',sans-serif;">Kakao Map</a>
+          <a href="https://naver.me/GkR3XjYm" target="_blank" style="flex:1; display:block; text-align:center; border:1px solid #1a3a8f; color:#1a3a8f; font-size:10px; letter-spacing:0.15em; text-transform:uppercase; padding:12px; text-decoration:none; font-family:'DM Sans',sans-serif;">Naver Map</a>
+        </div>
+
+        <div id="daumRoughmapContainer1778489041165" class="root_daum_roughmap root_daum_roughmap_landing" style="width:100%; margin-bottom:20px;"></div>
+
+        <div style="font-family:'Nanum Myeongjo',serif; font-size:14px; color:#2a2a2a; line-height:2;">
+
+          <div style="padding:12px 0 8px; border-top:0.5px solid #e0e0e0;">
+            <div style="font-size:13px; font-weight:700; color:#1a1a1a; margin-bottom:6px;">🚌 셔틀버스 수시운행</div>
+            수원역 지하상가 13번출구 공항 리무진버스 정류장
+          </div>
+
+          <div style="padding:12px 0 8px; border-top:0.5px solid #e0e0e0;">
+            <div style="font-size:13px; font-weight:700; color:#1a1a1a; margin-bottom:6px;">🚇 지하철 이용시</div>
+            1호선 · 분당선 <strong>수원역</strong> 하차<br>
+            · 셔틀버스: 수원역 지하상가 13번출구 공항 리무진버스 정류장<br>
+            · 도보: 수원역 4번출구(교통안전공단 방향)에서 800m 이내
+          </div>
+
+          <div style="padding:12px 0 8px; border-top:0.5px solid #e0e0e0;">
+            <div style="font-size:13px; font-weight:700; color:#1a1a1a; margin-bottom:6px;">🚌 버스 이용시</div>
+            수원역 정류장 하차 (모든 버스 수원역 하차)<br>
+            · 파랑(간선버스): 110, 1004, 4300-1<br>
+            · 빨강(광역버스): 110, 707, 701-1, 909, 1007, 2007, 3000, 7770, 8851, 8401, 8409<br>
+            · 초록(지선버스): 2-1, 2-2, 5, 5-2, 7-1, 7-2, 7-1A, 9, 9-1, 10, 10-2, 10-5, 11, 11-1, 13, 13-1, 13-4, 13-5, 15-1, 16-2, 32-3, 32-4, 35, 37, 50-2, 60, 66, 66-4, 82-1, 83-1, 88, 88-1, 92, 92-1, 123A, 123D, 150, 151, 301, 310, 400, 400-4, 720-2, 777, 900, 999, 마을6, H120A
+          </div>
+
+          <div style="padding:12px 0 16px; border-top:0.5px solid #e0e0e0;">
+            <div style="font-size:13px; font-weight:700; color:#1a1a1a; margin-bottom:6px;">🚗 자가용 이용시</div>
+            네비게이션: <strong>파티웨딩유</strong> 또는 <strong>0312971000</strong> 입력<br>
+            · 주소검색: "경기 수원시 권선구 세화로 218" 또는 "경기 수원시 권선구 서둔동 9-16"<br>
+            · 서울방면: 국도이용시 → 1번국도 수원진입 / 고속도로 이용시 → 영동고속도로 북수원IC 또는 동수원IC → 1번국도<br>
+            · 인천방면: 42번 국도 이용<br>
+            · 타지역방면: 경부고속도로 수원IC → 42번국도
+          </div>
+
+        </div>
     </div>
 
     <div class="inv-rule"></div>
@@ -457,7 +501,9 @@
     var arrow = document.getElementById('arr-' + id);
     var isOpen = content.classList.contains('open');
     content.classList.toggle('open', !isOpen);
-    arrow.classList.toggle('open', !isOpen);
+    if (arrow) {
+      arrow.textContent = isOpen ? '▼' : '▲';
+    }
   }
 
   function copyAccount(btn, number) {
@@ -471,5 +517,22 @@
     });
   }
 </script>
+  <script charset="UTF-8">
+    function loadKakaoMap() {
+      var script = document.createElement('script');
+      script.charset = 'UTF-8';
+      script.src = 'https://ssl.daumcdn.net/dmaps/map_js_init/roughmapLoader.js';
+      script.onload = function() {
+        new daum.roughmap.Lander({
+          "timestamp": "1778489041165",
+          "key": "nkr2uei2wdb",
+          "mapWidth": "640",
+          "mapHeight": "360"
+        }).render();
+      };
+      document.body.appendChild(script);
+    }
+    loadKakaoMap();
+  </script>
 </body>
 </html>
