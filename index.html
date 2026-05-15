@@ -39,6 +39,31 @@
 
     .inv-eyebrow { font-size: 32px; line-height: 1.25; margin-bottom: 28px; }
 
+    .inv-dday {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      color: #1a3a8f;
+      margin-top: 8px;
+      text-transform: uppercase;
+    }
+
+    .section-title {
+      font-size: 20px;
+      margin: 24px 0 18px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      white-space: nowrap;
+    }
+    .section-title::before,
+    .section-title::after {
+      content: '';
+      flex: 1;
+      height: 0.5px;
+      background: #d0d0d0;
+    }
+
     .inv-photo-main {
       background: #e0e0e0;
       aspect-ratio: 1 / 1;
@@ -48,6 +73,8 @@
       justify-content: center;
       gap: 10px;
       overflow: hidden;
+      margin: 0 8px;
+      width: calc(100% - 16px);
     }
 
     .inv-photo-main img {
@@ -252,22 +279,36 @@
     .copy-btn.copied { background: #1a3a8f; color: #fff; }
 
     .rsvp-section { padding: 0 32px; }
-    .rsvp-title { font-size: 24px; margin-bottom: 8px; }
+    .rsvp-title {
+      font-size: 20px;
+      margin: 40px 0 8px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      white-space: nowrap;
+    }
+    .rsvp-title::before,
+    .rsvp-title::after {
+      content: '';
+      flex: 1;
+      height: 0.5px;
+      background: #d0d0d0;
+    }
     .rsvp-sub { font-size: 11px; color: #999; letter-spacing: 0.08em; line-height: 1.8; margin-bottom: 20px; font-family: 'Nanum Myeongjo', serif; }
     .rsvp-btn {
       display: inline-block;
       border: 1px solid #1a3a8f;
-      background: transparent;
-      color: #1a3a8f;
-      font-size: 10px;
+      background: #1a3a8f;
+      color: #fff;
+      font-size: 11px;
       letter-spacing: 0.18em;
       text-transform: uppercase;
-      padding: 13px 40px;
+      padding: 14px 48px;
       cursor: pointer;
       font-family: 'DM Sans', sans-serif;
-      text-decoration: none;
+      transition: all 0.2s;
     }
-    .rsvp-btn:hover { background: #1a3a8f; color: #fff; }
+    .rsvp-btn:hover { background: #0f2660; border-color: #0f2660; }
 
     .inv-footer { margin-top: 36px; padding: 20px 32px 0; border-top: 0.5px solid #c0c0c0; text-align: center; }
     .footer-names { font-family: 'Nanum Myeongjo', serif; font-size: 13px; color: #999; }
@@ -287,10 +328,10 @@
   <div class="inv-names-block">
     <div class="inv-names-en">Yang Jiwoong · Park Soomin</div>
     <div class="inv-date-sub">Saturday · March 20, 2027 · 5:00 PM</div>
+    <div class="inv-dday" id="dday-counter"></div>
   </div>
 
   <div class="inv-body">
-    <div class="inv-rule"></div>
     <div class="section-title pf">Our story</div>
 
     <!-- 소개 섹션: 내용을 채워주세요 -->
@@ -328,8 +369,7 @@
 
     </div>
 
-    <div class="inv-rule"></div>
-    <div class="section-title pf">Gallery</div>
+    <div class="section-title pf" style="margin-top:32px; margin-bottom:24px;">Gallery</div>
   </div>
 
   <!-- 갤러리: <img src="photos/1.jpg"> 형식으로 사진을 교체하세요 -->
@@ -355,7 +395,6 @@
   </div>
 
   <div class="inv-body">
-    <div class="inv-rule"></div>
     <div class="section-title pf">Details</div>
     <div class="details-grid">
       <div class="detail-row">
@@ -411,8 +450,7 @@
         </div>
     </div>
 
-    <div class="inv-rule"></div>
-    <div class="section-title pf">Contact</div>
+    <div style="padding-top:20px;"><div class="section-title pf">Contact</div></div>
 
     <div class="contact-sub">Phone</div>
     <div class="phone-grid">
@@ -465,10 +503,11 @@
       </div>
     </div>
 
-    <div class="inv-rule"></div>
     <div class="rsvp-title pf">RSVP</div>
     <div class="rsvp-sub">소중한 자리에 함께해 주세요</div>
-    <button class="rsvp-btn" onclick="document.getElementById('rsvp-modal').style.display='flex'">참석 여부 알리기</button>
+    <div style="text-align:center;">
+      <button class="rsvp-btn" onclick="document.getElementById('rsvp-modal').style.display='flex'">참석 여부 알리기</button>
+    </div>
 
   </div>
 
@@ -578,6 +617,21 @@
       document.getElementById('rsvp-success').style.display = 'block';
     });
   }
+  // D-day 카운터
+  function updateDday() {
+    var wedding = new Date('2027-03-20');
+    var today = new Date();
+    today.setHours(0, 0, 0, 0);
+    wedding.setHours(0, 0, 0, 0);
+    var diff = Math.ceil((wedding - today) / (1000 * 60 * 60 * 24));
+    var el = document.getElementById('dday-counter');
+    if (!el) return;
+    if (diff > 0) el.textContent = 'D-' + diff;
+    else if (diff === 0) el.textContent = 'D-Day 🤍';
+    else el.textContent = 'Married 🤍';
+  }
+  updateDday();
+
   var gIdx = 0;
   var gImages = ['01.jpg','02.jpg','03.jpg','04.jpg','05.jpg','06.jpg','07.jpg','08.jpg','09.jpg','10.jpg','11.jpg'];
 
