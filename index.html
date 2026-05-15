@@ -129,10 +129,11 @@
     }
     .bullet-dot { color: #1a3a8f; font-size: 16px; flex-shrink: 0; line-height: 1.6; }
 
-    .gallery-section { padding: 0 32px; }
+    .gallery-section { margin: 0; padding: 0 32px; }
+    .gallery-main-photo { height: 320px; overflow:hidden; margin-bottom:4px; }
     .gallery-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(2, 1fr);
       gap: 4px;
     }
     .gallery-thumb {
@@ -297,6 +298,18 @@
         <div class="bullet-item"><span class="bullet-dot">·</span><span><strong>결혼을 결심하게 된 이유</strong>수민과 함께 있으면 애쓰지 않아도 편안하다. 기분이 좋을 때는 더 크게 웃게 되고, 힘든 날에는 괜찮아질 때까지 곁을 지켜준다. 무엇보다 그녀는 내가 '있는 그대로의 모습'이어도 괜찮다고 느끼게 해주는 사람이다.<br><br>사소한 하루를 나누는 시간이 특별해졌고, 미래를 생각할 때 가장 먼저 떠오르는 얼굴이 되었다. 오래 사랑하는 법은 거창한 게 아니라는 걸 그녀를 통해 배운다. 앞으로의 평범한 모든 날을 수민과 함께 보내고 싶다.</span></div>
       </div>
 
+      <!-- 커플 사진: src="couple.jpg" 로 교체하세요 -->
+      <div style="margin: 20px 16px; overflow:hidden;">
+        <div style="background:#e8e8e8; height:280px; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:8px;">
+          <svg width="28" height="24" viewBox="0 0 28 24" fill="none" style="opacity:0.4;">
+            <rect x="1" y="4" width="26" height="18" rx="1.5" stroke="#888" stroke-width="1"/>
+            <circle cx="14" cy="13" r="4.5" stroke="#888" stroke-width="1"/>
+            <path d="M9 4 L10.5 1 H17.5 L19 4" stroke="#888" stroke-width="1" fill="none"/>
+          </svg>
+          <div style="font-size:9px; letter-spacing:0.2em; color:#aaa; text-transform:uppercase;">커플 사진</div>
+        </div>
+      </div>
+
       <div class="person-label">수민</div>
       <div class="bullet-list">
         <div class="bullet-item"><span class="bullet-dot">·</span><span><strong>소개</strong>밤하늘과 식물, 포근한 이불과 아이스크림을 좋아한다. 날카로워진 나를 다시 둥글게 만들어주는 무해한 평화 같은 존재들이다. 요즘은 스스로를 괴롭히지 않고 건강하게 행복해지는 법을 고민하며 매일 새로운 세상을 마주하는 중이다. 이 여정에서 지웅을 만나, 함께 행복해지는 방법을 배우고 있다.</span></div>
@@ -304,6 +317,8 @@
         <div class="bullet-item"><span class="bullet-dot">·</span><span><strong>지웅에게 자주 하는 말</strong>'오빠가 뭘 알아!', '오빠는 아무것도 모르면서', '오빠 바보' (지웅은 대체로 아무것도 모른다!!)</span></div>
         <div class="bullet-item"><span class="bullet-dot">·</span><span><strong>결혼을 결심하게 된 이유</strong>소라빵이 좋아 빵집 사장님과 결혼하겠다던 어린 나는, 여러 연애를 거치며 '나를 궁금해하는 사람'과 결혼해야겠다고 생각했다.<br><br>지웅은 늘 내 하루와 마음을 궁금해한다. 잘 잤는지, 오늘 기분은 어떤지, 회사에서는 무슨 일이 있었는지, 내가 좋아하는 드라마는 어떤 내용인지, 무엇을 먹고 싶은지까지.<br><br>그의 다정함은 관계에 대한 불안함마저 천천히 이겨내게 만들었고, 어떤 순간에도 있는 그대로 사랑받고 있음을 충분히 느끼게 한다. 그런 그를 사랑한다.<br></span></div>
       </div>
+
+
     </div>
 
     <div class="inv-rule"></div>
@@ -312,16 +327,20 @@
 
   <!-- 갤러리: <img src="photos/1.jpg"> 형식으로 사진을 교체하세요 -->
   <div class="gallery-section">
+    <div class="gallery-main-photo" onclick="openLightbox(0)">
+      <img src="01.jpg" alt="" style="width:100%; height:100%; object-fit:cover; display:block; cursor:pointer;">
+    </div>
     <div class="gallery-grid">
-      <div class="gallery-thumb" onclick="openLightbox(0)"><span class="gallery-thumb-lbl">01</span></div>
-      <div class="gallery-thumb" onclick="openLightbox(1)"><span class="gallery-thumb-lbl">02</span></div>
-      <div class="gallery-thumb" onclick="openLightbox(2)"><span class="gallery-thumb-lbl">03</span></div>
-      <div class="gallery-thumb" onclick="openLightbox(3)"><span class="gallery-thumb-lbl">04</span></div>
-      <div class="gallery-thumb" onclick="openLightbox(4)"><span class="gallery-thumb-lbl">05</span></div>
-      <div class="gallery-thumb" onclick="openLightbox(5)"><span class="gallery-thumb-lbl">06</span></div>
-      <div class="gallery-thumb" onclick="openLightbox(6)"><span class="gallery-thumb-lbl">07</span></div>
-      <div class="gallery-thumb" onclick="openLightbox(7)"><span class="gallery-thumb-lbl">08</span></div>
-      <div class="gallery-thumb" onclick="openLightbox(8)"><span class="gallery-thumb-lbl">09</span></div>
+      <div class="gallery-thumb" onclick="openLightbox(1)"><img src="02.jpg" alt=""></div>
+      <div class="gallery-thumb" onclick="openLightbox(2)"><img src="03.jpg" alt=""></div>
+      <div class="gallery-thumb" onclick="openLightbox(3)"><img src="04.jpg" alt=""></div>
+      <div class="gallery-thumb" onclick="openLightbox(4)"><img src="05.jpg" alt=""></div>
+      <div class="gallery-thumb" onclick="openLightbox(5)"><img src="06.jpg" alt=""></div>
+      <div class="gallery-thumb" onclick="openLightbox(6)"><img src="07.jpg" alt=""></div>
+      <div class="gallery-thumb" onclick="openLightbox(7)"><img src="08.jpg" alt=""></div>
+      <div class="gallery-thumb" onclick="openLightbox(8)"><img src="09.jpg" alt=""></div>
+      <div class="gallery-thumb" onclick="openLightbox(9)"><img src="10.jpg" alt=""></div>
+      <div class="gallery-thumb" onclick="openLightbox(10)"><img src="11.jpg" alt=""></div>
     </div>
   </div>
 
@@ -561,16 +580,18 @@
       document.getElementById('rsvp-success').style.display = 'block';
     });
   }
-  var lbTotal = 9;
+  var lbIdx = 0;
+  var lbTotal = 11;
+  var lbImages = ['01.jpg','02.jpg','03.jpg','04.jpg','05.jpg','06.jpg','07.jpg','08.jpg','09.jpg','10.jpg','11.jpg'];
 
   function openLightbox(idx) {
     lbIdx = idx;
     updateLightbox();
-    document.getElementById('lightbox').classList.add('open');
+    document.getElementById('lightbox').style.display = 'flex';
   }
 
   function closeLightbox() {
-    document.getElementById('lightbox').classList.remove('open');
+    document.getElementById('lightbox').style.display = 'none';
   }
 
   function lbChange(dir) {
@@ -579,7 +600,7 @@
   }
 
   function updateLightbox() {
-    document.getElementById('lb-lbl').textContent = 'photo ' + (lbIdx + 1);
+    document.getElementById('lb-img').innerHTML = '<img src="' + lbImages[lbIdx] + '" style="width:100%; height:100%; object-fit:cover;">';
     document.getElementById('lb-counter').textContent = (lbIdx + 1) + ' / ' + lbTotal;
   }
 
